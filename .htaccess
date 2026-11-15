@@ -1,0 +1,20 @@
+# Klasa Digjitale — e sigurt për cPanel (PHP-FPM / LiteSpeed / mod_php)
+# Kufijtë e ngarkimit (600M) vendosen te .user.ini, jo këtu.
+DirectoryIndex index.php
+AddType application/manifest+json .webmanifest
+<IfModule mod_autoindex.c>
+  IndexIgnore *
+</IfModule>
+<IfModule mod_headers.c>
+  <Files "sw.js">
+    Header set Cache-Control "no-cache"
+  </Files>
+</IfModule>
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(config\.php|config\.sample\.php|README\.md|\.user\.ini)$">
+    Require all denied
+  </FilesMatch>
+  <FilesMatch "\.(sql|md|log|gz|tar|orig)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>

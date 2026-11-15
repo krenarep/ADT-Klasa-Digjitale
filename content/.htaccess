@@ -1,0 +1,25 @@
+# Përmbajtja e librave: vetëm skedarë statikë, asnjë skript në server
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.(php\d?|phtml|phar|pht|cgi|pl|py|sh|asp|aspx|jsp)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule mod_mime.c>
+  RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+  AddType application/json .json
+  AddType font/woff2 .woff2
+  AddType audio/mpeg .mp3
+  AddType audio/wav .wav
+</IfModule>
+# Librat hapen brenda lexuesit të platformës (iframe nga i njëjti domen).
+# Zëvendëson çdo "X-Frame-Options: DENY" / "frame-ancestors 'none'" të vendosur nga serveri ose nga .htaccess i public_html.
+<IfModule mod_headers.c>
+  Header always unset X-Frame-Options
+  Header unset X-Frame-Options
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Content-Security-Policy "frame-ancestors 'self'"
+  # faqet HTML të librit rikontrollohen gjithmonë (që shfletuesi të mos përdorë një kopje të vjetër me kokë "DENY")
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

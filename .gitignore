@@ -1,0 +1,23 @@
+# Konfigurimi me fjalëkalimin e bazës — MOS e publiko kurrë
+config.php
+
+# Çelësat e kodimit, kopjet rezervë dhe dokumentet e ngarkuara (të dhëna personale)
+backups/*
+!backups/.htaccess
+!backups/index.html
+
+# Librat e ngarkuar
+content/books/*
+!content/books/.gitkeep
+uploads/
+
+# Eksportet, listat dhe faqet e testimit
+*.sql
+!install/schema.sql
+!install/perditesimi_db.sql
+*.sql.gz
+*.csv
+*.xlsx
+diag*.php
+.DS_Store
+Thumbs.db
